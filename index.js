@@ -107,7 +107,7 @@ function getAverageGoals(arr) {
     return (averageGoals / arr.length).toFixed(2);
 }
 
-console.log(getAverageGoals(fifaData));
+// console.log(getAverageGoals(fifaData));
 
 
 
@@ -120,12 +120,21 @@ Create a function called `getCountryWins` that takes the parameters `data` and `
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
-function getCountryWins(/* code here */) {
+function getCountryWins(data, teamInitials) {
+    // Init counter set to 0. will increment each time forEach loop finds a match
+    let winCount = 0;
 
-    /* code here */
-
+    data.forEach(function (el) {
+        if (el['Stage'] === 'Final') {
+            if ((teamInitials === el['Home Team Initials'] && el['Home Team Goals'] > el['Away Team Goals']) || (teamInitials === el['Away Team Initials'] && el['Away Team Goals'] > el['Home Team Goals'])) {
+                ++winCount;
+            }
+        }
+        });
+    return winCount;
 }
 
+// console.log(getCountryWins(fifaData, 'BRA'));
 
 
 /* 💪💪💪💪💪 Stretch 2: 💪💪💪💪💪 
