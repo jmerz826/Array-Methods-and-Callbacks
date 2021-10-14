@@ -140,11 +140,54 @@ function getCountryWins(data, teamInitials) {
 /* 💪💪💪💪💪 Stretch 2: 💪💪💪💪💪 
 Write a function called getGoals() that accepts a parameter `data` and returns the team with the most goals score per appearance (average goals for) in the World Cup finals */
 
-function getGoals(/* code here */) {
+function getGoals(data) {
+    const finalsData = data.filter(item => item['Stage'] === 'Final');
+    let goalObj = {};
+    let appearancesObj = {}
 
-    /* code here */
+    finalsData.forEach(function (game) {
+        if (goalObj[game['Away Team Initials']] === undefined) {
+            goalObj[game['Away Team Initials']] = game['Away Team Goals'];
+        } else {
+            goalObj[game['Away Team Initials']] += game['Away Team Goals'];
+        }
+        if (goalObj[game['Home Team Initials']] === undefined) {
+            goalObj[game['Home Team Initials']] = game['Home Team Goals'];
+        } else {
+            goalObj[game['Home Team Initials']] += game['Home Team Goals'];
+        }
+    });
+    console.log(goalObj);
 
+    finalsData.forEach(function (game) {
+        if (appearancesObj[game['Away Team Initials']] === undefined) {
+            appearancesObj[game['Away Team Initials']] = 1;
+        } else {
+            appearancesObj[game['Away Team Initials']]++;
+        }
+        if (appearancesObj[game['Home Team Initials']] === undefined) {
+            appearancesObj[game['Home Team Initials']] = 1;
+        } else {
+            appearancesObj[game['Home Team Initials']]++;
+        }
+    });
+
+    console.log(appearancesObj);
+
+    const averageGoals = [];
+    const goalArr = Object.values(goalObj);
+    const appearanceArr = Object.values(appearancesObj);
+    console.log(appearanceArr);
+
+
+
+
+    // let winner = Object.keys(goalObj).reduce((a,b) => goalObj[a] > goalObj[b] ? a : b)
+        
+    // return winner;
 }
+
+console.log(getGoals(fifaData));
 
 
 /* 💪💪💪💪💪 Stretch 3: 💪💪💪💪💪
